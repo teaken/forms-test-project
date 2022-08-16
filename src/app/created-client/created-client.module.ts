@@ -1,31 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddressWrapperComponent } from './address-wrapper.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared.module';
+import { CreatedClientComponent } from './created-client.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: AddressWrapperComponent
+    component: CreatedClientComponent
   }
 ];
 
-
 @NgModule({
   declarations: [
-    AddressWrapperComponent
+    CreatedClientComponent
   ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     SharedModule
   ],
-  exports:[
-    AddressWrapperComponent
+  exports: [
+    CreatedClientComponent
   ]
 })
-export class AddressWrapperModule { }
+export class CreatedClientModule { }

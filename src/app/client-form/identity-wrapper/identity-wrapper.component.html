@@ -1,1 +1,61 @@
-<p>identity-wrapper works!</p>
+<div class="flex justify-center flex-col items-center ">
+    <h1 class="text-gray-600">Step 3</h1>
+    <form [formGroup]="identityForm" (ngSubmit)="onFormSubmit(identityForm)" class="w-9/12">
+        <div class="flex justify-between md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Document type</mat-label>
+                <select formControlName="documentType" matNativeControl required [errorStateMatcher]="matcher">
+                    <option value="passport">Passport</option>
+                    <option value="birthCertificate">Birth Certificate</option>
+                    <option value="drivingLicense">Driving license</option>
+                </select>
+                <mat-error *ngIf="identityForm.controls['documentType'].hasError('required')">
+                    Document is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full " appearance="fill">
+                <mat-label>Series</mat-label>
+                <input formControlName="series" type="text" matInput>
+            </mat-form-field>
+        </div>
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Number</mat-label>
+                <input formControlName="number" type="text" matInput [errorStateMatcher]="matcher">
+                <mat-error *ngIf="identityForm.controls['number'].hasError('required')">
+                    Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Issued by</mat-label>
+                <input formControlName="issuedBy" type="text" matInput>
+
+            </mat-form-field>
+        </div>
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Date of issue</mat-label>
+                <input formControlName="dateOfIssue" matInput [matDatepicker]="picker" [errorStateMatcher]="matcher">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="identityForm.controls['dateOfIssue'].hasError('required')">
+                    Date of issue is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <div class="w-full">
+                <label class="block mb-2 text-sm  text-gray-900 dark:text-gray-600" for="file_input">Upload
+                    file</label>
+                <input
+                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    id="file_input" type="file">
+            </div>
+     
+
+        </div>
+
+        <button class="float-right !mt-4" mat-raised-button color="primary">Continue</button>
+
+
+    </form>
+</div>

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IdentityWrapperComponent } from './identity-wrapper.component';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared.module';
 
 
 const routes: Routes = [
@@ -17,7 +19,10 @@ const routes: Routes = [
   ],
   imports: [
     RouterModule.forChild(routes),
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     IdentityWrapperComponent

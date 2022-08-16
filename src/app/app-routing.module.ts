@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./client-form/client-form.module').then(m => m.ClientFormModule),
   },
   {
+    path: 'created-client',
+    loadChildren: () => import('./created-client/created-client.module').then(m => m.CreatedClientModule),
+  },
+  {
     path: '**',
     redirectTo: ''
   }

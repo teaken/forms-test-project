@@ -1,1 +1,70 @@
-<p>address-wrapper works!</p>
+<div class="flex justify-center flex-col items-center ">
+    <h1 class="text-gray-600">Step 2</h1>
+    <form [formGroup]="addressForm" (ngSubmit)="onFormSubmit(addressForm)" class="w-9/12">
+
+        <div class="flex justify-between md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Index</mat-label>
+                <input formControlName="index" type="number" matInput >
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Country</mat-label>
+                <select formControlName="country" matNativeControl required [errorStateMatcher]="matcher">
+                    <option value="georgia">Georgia</option>
+                    <option value="england">England</option>
+                    <option value="italy">Italy</option>
+                    <option value="german">German</option>
+                    <option value="other">Other</option>
+                </select>
+                <mat-error *ngIf="addressForm.controls['country'].hasError('required')">
+                    Country is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Area</mat-label>
+                <input formControlName="area" type="text" matInput>
+
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>City</mat-label>
+                <select formControlName="city" matNativeControl required [errorStateMatcher]="matcher">
+                    <option value="tbilisi">Georgia</option>
+                    <option value="paris">England</option>
+                    <option value="london">Italy</option>
+                    <option value="kiev">German</option>
+                    <option value="prague">Prague</option>
+                    <option value="other">Other</option>
+                </select>
+                <mat-error *ngIf="addressForm.controls['city'].hasError('required')">
+                    City is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Street</mat-label>
+                <input formControlName="street" type="text" matInput [errorStateMatcher]="matcher">
+                <mat-error *ngIf="addressForm.controls['street'].hasError('required')">
+                    Street is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>House</mat-label>
+                <input formControlName="house" type="text" matInput [errorStateMatcher]="matcher">
+                <mat-error *ngIf="addressForm.controls['house'].hasError('required')">
+                    House is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+       
+        <button class="float-right !mt-4" mat-raised-button color="primary">Continue</button>
+
+
+    </form>
+</div>

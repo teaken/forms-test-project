@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -11,7 +12,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-client-wrapper',
   templateUrl: './client-wrapper.component.html',
-  styleUrls: ['./client-wrapper.component.scss']
 })
 
 
@@ -21,7 +21,7 @@ export class ClientWrapperComponent implements OnInit {
   
   matcher = new MyErrorStateMatcher();
   
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -42,5 +42,6 @@ export class ClientWrapperComponent implements OnInit {
 
   onFormSubmit(form: FormGroup){
     console.log(form.value)
+    this.router.navigate(['client-form/address'])
   }
 }
