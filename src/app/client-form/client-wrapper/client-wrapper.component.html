@@ -1,30 +1,88 @@
+<div class="flex justify-center">
+    <form [formGroup]="clientForm" (ngSubmit)="onFormSubmit(clientForm)" class="w-9/12">
 
-<div>
-    <form [formGroup]="clientForm" (ngSubmit)="onFormSubmit(clientForm)" class="example-form">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Last Name</mat-label>
-          <input  formControlName="lastName" type="text" matInput placeholder="Ex. pat@example.com">
-        
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Name</mat-label>
-            <input  formControlName="name" type="text" matInput placeholder="Ex. pat@example.com">
-          
-          </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Middle name</mat-label>
-            <input  formControlName="middleName" type="text" matInput placeholder="Ex. pat@example.com">
-          
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Date of birth</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          
-        
-          <button mat-raised-button color="primary" >Continue</button>
-      </form>
+        <div class="flex justify-between md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input formControlName="lastName" type="text" matInput [errorStateMatcher]="matcher">
+                <mat-error *ngIf="clientForm.controls['lastName'].hasError('required')">
+                    Last name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" type="text" matInput [errorStateMatcher]="matcher">
+                <mat-error *ngIf="clientForm.controls['name'].hasError('required')">
+                    Name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Middle name</mat-label>
+                <input formControlName="middleName" type="text" matInput>
+
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Date of birth</mat-label>
+                <input formControlName="dateOfBirth" matInput [matDatepicker]="picker" [errorStateMatcher]="matcher">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="clientForm.controls['dateOfBirth'].hasError('required')">
+                    Date of birth is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input formControlName="phoneNumber" type="number" matInput [errorStateMatcher]="matcher">
+                <mat-error *ngIf="clientForm.controls['phoneNumber'].hasError('required')">
+                    Phone number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Gender</mat-label>
+                <select formControlName="gender" matNativeControl required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </mat-form-field>
+
+        </div>
+        <div class="flex justify-center mt-4 md:flex-col">
+            <mat-form-field class="w-full mr-3" appearance="fill">
+                <mat-label>Client group</mat-label>
+                <mat-select formControlName="clientGroup" multiple [errorStateMatcher]="matcher">
+                    <mat-option *ngFor="let group of clientGroupList" [value]="group">{{group}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="clientForm.controls['clientGroup'].hasError('required')">
+                    Client group is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Coordinator</mat-label>
+                <select formControlName="coordinator" matNativeControl required [errorStateMatcher]="matcher">
+                    <option value="jhones">Jhones</option>
+                    <option value="colinwood">Colinwood</option>
+                    <option value="other">Other</option>
+                </select>
+                <mat-error *ngIf="clientForm.controls['coordinator'].hasError('required')">
+                    Coordinator is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div  class="flex justify-end mt-4">
+            <mat-checkbox formControlName="smsSend" class="example-margin">Do not send SMS</mat-checkbox>
+
+        </div>
+        <button class="float-right !mt-4" mat-raised-button color="primary">Continue</button>
+
+
+    </form>
 </div>
