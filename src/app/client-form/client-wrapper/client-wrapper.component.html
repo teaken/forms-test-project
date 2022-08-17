@@ -45,6 +45,9 @@
                 <mat-error *ngIf="clientForm.controls['phoneNumber'].hasError('required')">
                     Phone number is <strong>required</strong>
                 </mat-error>
+                <mat-error *ngIf="clientForm.controls['phoneNumber'].hasError('minLength') || clientForm.controls['phoneNumber'].hasError('maxLength')">
+                   Phone number digits have to be 11 number
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Gender</mat-label>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.state';
+import { registrationState } from '../store/reducer/registration.reducer';
+import { selectAllInfo } from '../store/selector/registration.selector';
 
 @Component({
   selector: 'app-created-client',
@@ -7,9 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatedClientComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.store.select(selectAllInfo).subscribe(console.log)
   }
 
 }

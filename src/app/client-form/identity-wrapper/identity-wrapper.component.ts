@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { identitySuccess } from 'src/app/store/actions/registration.action';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -17,7 +19,7 @@ export class IdentityWrapperComponent implements OnInit {
   identityForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store) { }
 
   ngOnInit(): void {
     this.identityForm = this.formBuilder.group(
@@ -33,6 +35,18 @@ export class IdentityWrapperComponent implements OnInit {
     );
   }
   onFormSubmit(form: FormGroup) {
+    if (form.valid) {
+      const identityObj = {
+        documentType: form.value.documentType,
+        series: form.value.series,
+        number: form.value.number,
+        issuedBy: form.value.issuedBy,
+        dateOfIssue: form.value.dateOfIssue,
+        file: form.value.file,
+      }
 
+      this.store.dispatch(identitySuccess(identityObj))
+      this.router.navigate(['created-client'])
+    }
   }
 }

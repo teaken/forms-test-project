@@ -1,4 +1,4 @@
-export interface ClientModel {
+export interface clientModel {
     lastName: string,
     name: string,
     middleName?: string,

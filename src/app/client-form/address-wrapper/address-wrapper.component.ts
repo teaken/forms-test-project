@@ -37,16 +37,19 @@ export class AddressWrapperComponent implements OnInit {
   }
 
   onFormSubmit(form: FormGroup){
-    const values = form.value
-    const addressObj = {
-      index: values.index,
-      country: values.country,
-      area: values.area,
-      city: values.city,
-      street: values.street,
-      house: values.house,
+    if(form.valid){
+      const addressObj = {
+        index: form.value.index,
+        country: form.value.country,
+        area: form.value.area,
+        city: form.value.city,
+        street: form.value.street,
+        house: form.value.house,
+      }
+  
+      this.store.dispatch(addressSuccess(addressObj))
+      this.router.navigate(['client-form/identity'])
     }
-    this.store.dispatch(addressSuccess(addressObj))
-    this.router.navigate(['client-form/identity'])
+ 
   }
 }

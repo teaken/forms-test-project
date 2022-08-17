@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { addressSuccess, clientInfoSuccess } from 'src/app/store/actions/registration.action';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -21,7 +23,7 @@ export class ClientWrapperComponent implements OnInit {
   
   matcher = new MyErrorStateMatcher();
   
-  constructor(private formBuilder: FormBuilder,private router: Router) { }
+  constructor(private formBuilder: FormBuilder,private router: Router,private store: Store) { }
 
   ngOnInit(): void {
 
@@ -31,7 +33,7 @@ export class ClientWrapperComponent implements OnInit {
         name: [null, [Validators.required]],
         middleName: [null],
         dateOfBirth: [null,[Validators.required]],
-        phoneNumber: [null, [Validators.required]],
+        phoneNumber: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
         gender: [null],
         clientGroup: [null,[Validators.required]],
         coordinator: [null],
@@ -41,7 +43,21 @@ export class ClientWrapperComponent implements OnInit {
   }
 
   onFormSubmit(form: FormGroup){
-    console.log(form.value)
-    this.router.navigate(['client-form/address'])
+    if(form.valid){
+      const infoObj = {
+        lastName: form.value.lastName,
+        name: form.value.name,
+        middleName: form.value.middleName,
+        dateOfBirth: form.value.dateOfBirth,
+        phoneNumber: form.value.phoneNumber,
+        gender: form.value.gender,
+        clientGroup: form.value.clientGroup,
+        coordinator: form.value.coordinator,
+        smsSend: form.value.smsSend,
+      }
+  
+      this.store.dispatch(clientInfoSuccess(infoObj))
+      this.router.navigate(['client-form/address'])
+    }
   }
 }

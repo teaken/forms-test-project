@@ -1,12 +1,12 @@
 import { Action, createFeatureSelector, createReducer, on } from "@ngrx/store";
 import { addressSuccess, clientInfoSuccess, identitySuccess } from "../actions/registration.action";
 import { addressModel } from "../models/address.model";
-import { ClientModel } from "../models/client.model";
+import { clientModel } from "../models/client.model";
 import { identityModel } from "../models/identity.model";
 export interface registrationState {
     identity: identityModel[],
     address: addressModel[],
-    client: ClientModel[]
+    client: clientModel[]
 }
 
 export const initialState: registrationState = {
