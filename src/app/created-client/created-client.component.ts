@@ -17,7 +17,6 @@ export class CreatedClientComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(selectAllInfo).subscribe(
       (result) => {
-        console.log(result)
         if (Object.values(result).length == 0) {
           this.router.navigate(['client-form/client'])
         } else {
