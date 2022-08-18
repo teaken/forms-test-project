@@ -4,15 +4,15 @@ import { addressModel } from "../models/address.model";
 import { clientModel } from "../models/client.model";
 import { identityModel } from "../models/identity.model";
 export interface registrationState {
-    identity: identityModel[],
-    address: addressModel[],
-    client: clientModel[]
+    identity: identityModel,
+    address: addressModel,
+    client: clientModel
 }
 
 export const initialState: registrationState = {
-    identity: [],
-    address: [],
-    client: []
+    identity: {} as identityModel,
+    address: {} as addressModel,
+    client: {} as clientModel
 
 };
 
@@ -20,16 +20,16 @@ export const registrationReducer = createReducer(
     initialState,
     on(identitySuccess, (state, action) => ({
         ...state,
-        identity: [{ ...action }]
+        identity: { ...action }
 
     })),
     on(addressSuccess, (state, action) => ({
         ...state,
-        address: [{ ...action }]
+        address: { ...action }
     })),
     on(clientInfoSuccess, (state, action) => ({
         ...state,
-        client : [{...action}]
+        client : {...action}
     })),
 
 );

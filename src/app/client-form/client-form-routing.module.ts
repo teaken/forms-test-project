@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RegistrationGuardGuard } from '../registration-guard.guard';
 import { ClientFormComponent } from './client-form.component';
 
 const routes: Routes = [
@@ -10,14 +11,17 @@ const routes: Routes = [
       {
         path: 'client',
         loadChildren: () => import('./client-wrapper/client-wrapper.module').then(m => m.ClientWrapperModule),
+
       },
       {
         path: 'address',
         loadChildren: () => import('./address-wrapper/address-wrapper.module').then(m => m.AddressWrapperModule),
+        canActivate: [RegistrationGuardGuard]
       },
       {
         path: 'identity',
         loadChildren: () => import('./identity-wrapper/identity-wrapper.module').then(m => m.IdentityWrapperModule),
+        canActivate: [RegistrationGuardGuard]
       },
     ],
   },
@@ -25,6 +29,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RegistrationGuardGuard]
 })
 export class ClientFormRoutingModule { }

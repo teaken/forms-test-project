@@ -7,6 +7,10 @@ export const selectRegistration = (state: AppState) => state.registration;
 export const selectAllInfo = createSelector(
     selectRegistration,
     (state: registrationState) => {
-        return [...state.identity, ...state.client, ...state.address]
+        return {
+            ...state.identity,
+            ...state.address,
+            ...state.client
+        }
     }
 );

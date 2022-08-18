@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -10,7 +10,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+export class CustomValidators {
 
+  static isNumbers(control: AbstractControl) {
+
+    if (!(control.value)) {
+      return null;
+    }
+
+    return String(control.value)
+      .match(/^[0-9.]+$/) ? null : {'isNumbers': true};
+  }
+}
 @Component({
   selector: 'app-client-wrapper',
   templateUrl: './client-wrapper.component.html',
@@ -22,7 +33,7 @@ export class ClientWrapperComponent implements OnInit {
   clientGroupList: string[] = ['VIP Clients', 'Loyal Clients', 'New Clients'];
   
   matcher = new MyErrorStateMatcher();
-  
+  numberPattern = "^((\\+91-?)|0)?[0-9]{10}$";
   constructor(private formBuilder: FormBuilder,private router: Router,private store: Store) { }
 
   ngOnInit(): void {
@@ -33,7 +44,7 @@ export class ClientWrapperComponent implements OnInit {
         name: [null, [Validators.required]],
         middleName: [null],
         dateOfBirth: [null,[Validators.required]],
-        phoneNumber: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+        phoneNumber: [null, [Validators.required,  CustomValidators.isNumbers, Validators.minLength(11), Validators.maxLength(11)]],
         gender: [null],
         clientGroup: [null,[Validators.required]],
         coordinator: [null],

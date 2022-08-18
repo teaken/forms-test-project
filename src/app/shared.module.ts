@@ -7,9 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ErrorStateMatcher, MatNativeDateModule, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select'
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog'
 @NgModule({
-    declarations: [],
+    declarations: [
+  ],
     imports: [
         CommonModule,
         MatInputModule,
@@ -18,7 +20,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatDialogModule
     ],
     exports: [
         CommonModule,
@@ -28,7 +31,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatDialogModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -4,6 +4,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { identitySuccess } from 'src/app/store/actions/registration.action';
+import {MatDialog} from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -19,7 +21,7 @@ export class IdentityWrapperComponent implements OnInit {
   identityForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.identityForm = this.formBuilder.group(
@@ -46,7 +48,10 @@ export class IdentityWrapperComponent implements OnInit {
       }
 
       this.store.dispatch(identitySuccess(identityObj))
-      this.router.navigate(['created-client'])
+      this.dialog.open(ModalComponent, {
+        data: {
+          routerAddress: 'created-client'}
+      });
     }
   }
 }
